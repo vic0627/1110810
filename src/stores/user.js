@@ -1,12 +1,24 @@
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
 
-export default defineStore('userStore', {
+export default defineStore("userStore", {
   state: () => ({
     dis: [],
-    level: []
+    level: [],
   }),
   getters: {
-    getDis: (state) => state.dis,
-    getLevel: (state) => state.level
+    getDis: (state) => {
+      const temp = [];
+      for (const key in state.dis) {
+        temp[key] = { value: state.dis[key], label: state.dis[key] };
+      }
+      return temp;
+    },
+    getLevel: (state) => {
+      const temp = [];
+      for (const key in state.level) {
+        temp[key] = { value: state.level[key], label: state.level[key] };
+      }
+      return temp;
+    },
   },
-})
+});

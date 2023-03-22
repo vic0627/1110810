@@ -54,7 +54,6 @@ const componentCache = computed(() => {
     left: 0;
     background: #f8f8f8;
     box-shadow: 3px 3px 6px #00000080;
-    z-index: 3000;
 
     button {
         width: 176px;

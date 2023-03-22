@@ -1,6 +1,5 @@
 <script setup>
-import logo from "/images/header-logo.svg"
-
+import logo from "/images/header-logo.svg";
 </script>
 
 <template>
@@ -13,7 +12,7 @@ import logo from "/images/header-logo.svg"
 </template>
 
 <style scoped lang="scss">
-header{
+header {
     width: 100%;
     display: flex;
     align-items: center;
@@ -22,10 +21,12 @@ header{
     top: 0;
     left: 0;
     z-index: 3000;
-    .logo{
+
+    .logo {
         margin: 4px 16px 4px 10px;
     }
-    h1{
+
+    h1 {
         font-size: 40px;
         height: 53px;
         line-height: 53px;
