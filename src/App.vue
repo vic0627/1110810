@@ -3,6 +3,7 @@ import Nav from './components/Nav.vue';
 import Map from './components/Map.vue';
 import SearchBox from './components/SearchBox.vue';
 import SearchResult from './components/SearchResult.vue';
+import DetailResult from './components/DetailResult.vue';
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
 import userStore from './stores/user';
@@ -29,6 +30,7 @@ function API() {
   <Map />
   <SearchBox />
   <SearchResult />
+  <DetailResult />
 </template>
 
 <style scoped></style>

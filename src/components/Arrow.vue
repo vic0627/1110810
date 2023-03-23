@@ -1,12 +1,16 @@
 <script setup>
-const props = defineProps(["color", "rotate", "size", "position", "left"])
+const props = defineProps(["color", "rotate", "size", "position", "left", "type"])
 </script>
 
 <template>
-    <div class="backToSearch" :style="`width: ${props.size}px; height: ${props.size}px; position: ${props.position}; left: ${props.left}px`">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" :style="`transform: rotate(${props.rotate}deg);`">
+    <div class="backToSearch"
+        :style="`width: ${props.size}px; height: ${props.size}px; position: ${props.position}; left: ${props.left}px`"
+        :data-type="props.type">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" :style="`transform: rotate(${props.rotate}deg);`"
+            :data-type="props.type">
             <path :fill="props.color"
-                d="M831.872 340.864 512 652.672 192.128 340.864a30.592 30.592 0 0 0-42.752 0 29.12 29.12 0 0 0 0 41.6L489.664 714.24a32 32 0 0 0 44.672 0l340.288-331.712a29.12 29.12 0 0 0 0-41.728 30.592 30.592 0 0 0-42.752 0z">
+                d="M831.872 340.864 512 652.672 192.128 340.864a30.592 30.592 0 0 0-42.752 0 29.12 29.12 0 0 0 0 41.6L489.664 714.24a32 32 0 0 0 44.672 0l340.288-331.712a29.12 29.12 0 0 0 0-41.728 30.592 30.592 0 0 0-42.752 0z"
+                :data-type="props.type">
             </path>
         </svg>
     </div>
@@ -20,9 +24,9 @@ const props = defineProps(["color", "rotate", "size", "position", "left"])
     justify-content: center;
     align-items: center;
     cursor: pointer;
+
     svg {
         width: 75%;
         height: 75%;
     }
-}
-</style>
+}</style>

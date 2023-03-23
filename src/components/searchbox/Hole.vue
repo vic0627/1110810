@@ -1,7 +1,11 @@
 <script setup>
-import { computed, ref, watchEffect } from 'vue';
+import { computed } from 'vue';
 import userStore from '../../stores/user';
+
+// 全域變數
 const user = userStore();
+
+// 表單建立
 const inputs = computed(() => [
     {
         label: '行政區',
@@ -20,15 +24,16 @@ const inputs = computed(() => [
         label: '嚴重程度',
         type: 'option',
         store: user.getLevel,
-        value: 'level',
-        limit: 3
+        value: 'dtype',
+        limit: user.getLevel.length
     },
 ]);
-const value = ref({
-    dis: [], date: [], level: []
-})
+
+// 送出查詢
 const confirmSearch = () => {
-    console.log(value.value);
+    user.holeSearch();
+    user.searchBoxShow = false;
+    user.searchResultShow = true;
 }
 </script>
 
@@ -36,12 +41,12 @@ const confirmSearch = () => {
     <div class="hole">
         <div class="inputWrap" v-for="(e, index) in inputs" :key="index">
             <label :for="e.type">{{ e.label }}</label>
-            <el-select v-if="e.type === 'option'" v-model="value[e.value]" multiple filterable allow-create
+            <el-select v-if="e.type === 'option'" v-model="user.holeSearchValue[e.value]" multiple filterable allow-create
                 :multiple-limit="e.limit" :placeholder="`請選擇${e.label}`" size="large" style="width: 100%;">
                 <el-option v-for="item in e.store" :value="item.value" :label="item.label" :key="item.label" />
             </el-select>
-            <el-date-picker v-else v-model="value.date" type="daterange" start-placeholder="請選擇日期區間" size="large"
-                format="YYYY/MM/DD" value-format="YYYY-MM-DD" style="width: 300px;" />
+            <el-date-picker v-else v-model="user.holeSearchValue.date" type="daterange" start-placeholder="請選擇日期區間"
+                size="large" format="YYYY/MM/DD" value-format="YYYY-MM-DD" style="width: 300px;" />
         </div>
         <button class="confirmSearch" @click="confirmSearch">查詢</button>
     </div>

@@ -2,10 +2,19 @@
 import { ref, computed } from 'vue'
 import Hole from './searchbox/Hole.vue';
 import Range from './searchbox/Range.vue';
+import userStore from '../stores/user';
 
+// 全域變數
+const user = userStore();
+
+// 動態組件
 let tab = ref('hole');
+
+// 查詢種類 DOM
 const hole = ref(null);
 const range = ref(null);
+
+// 切換查詢方式
 const changeSearchType = (type) => {
     switch (type) {
         case 'hole':
@@ -23,6 +32,8 @@ const changeSearchType = (type) => {
             break;
     }
 }
+
+// 動態組件切換
 const componentCache = computed(() => {
     let temp = Hole;
     tab.value === 'hole' ? temp = Hole : temp = Range;
@@ -31,7 +42,7 @@ const componentCache = computed(() => {
 </script>
 
 <template>
-    <div class="searchBox">
+    <div class="searchBox" v-show="user.searchBoxShow">
         <button @click="changeSearchType('hole')" style="background: #02318E;" ref="hole">地下孔洞查詢</button>
         <button @click="changeSearchType('range')" ref="range">巡查範圍查詢</button>
         <div class="searchForm">
