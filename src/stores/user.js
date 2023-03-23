@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import { mapMarkers } from "../js/map";
+import { mapMarkers } from "../components/js/map";
 
 export default defineStore("userStore", {
   state: () => ({
@@ -70,14 +70,14 @@ export default defineStore("userStore", {
           this.resultObj = res.data.data.data;
           this.totalPages = res.data.data.total_page;
         })
-        .then((res) => mapMarkers(this.resultObj))
+        .then((res) => mapMarkers(this.resultObj, this.detailSearch))
         .catch((error) => console.log("error", error));
     },
-    detailSearch() {
+    detailSearch(body = this.details) {
       axios
         .post(
           "http://211.72.231.157/Kcg_Wrb_SP/api/v1/get_SP_detail?ID=100",
-          this.details
+          body
         )
         .then((res) => this.detailResult = res.data.data[0])
         .then(res => console.log(this.detailResult))

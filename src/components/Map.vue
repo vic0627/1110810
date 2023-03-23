@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted } from 'vue'
-import { mapInit } from '../js/map';
+import { mapInit } from './js/map';
 onMounted(() => {
     mapInit();
 })

@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 import userStore from '../../stores/user';
 import axios from 'axios';
-import { mapPath } from '../../js/map';
+import { mapPath } from '../js/map';
 
 // 全域變數
 const user = userStore();

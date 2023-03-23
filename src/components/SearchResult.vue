@@ -3,7 +3,7 @@ import { onUpdated, computed } from "vue";
 import Arrow from "./Arrow.vue";
 import userStore from '../stores/user';
 import { storeToRefs } from "pinia";
-import { flyTo } from '../js/map'
+import { flyTo } from './js/map'
 
 // DOM 陣列選取
 const $all = (e) => document.querySelectorAll(e);

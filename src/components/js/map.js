@@ -8,7 +8,7 @@ const mapInit = () => {
     zoom: 17,
   });
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
-  map.on("moveend", () => {
+  /* map.on("moveend", () => {
     if (!onFocus) return;
     let i = 0;
     for (const key in markersGroup._layers) {
@@ -16,7 +16,7 @@ const mapInit = () => {
       i++;
     }
     onFocus.setIcon(coloredIcon("", true));
-  });
+  }); */
 };
 
 const flyTo = (latlng) => {
@@ -42,7 +42,7 @@ let markersGroup,
   marker,
   onFocus,
   cacheColor = [];
-const mapMarkers = (res) => {
+const mapMarkers = (res, detailSearch) => {
   if (!res) return;
   if (markersGroup && marker) {
     markersGroup.clearLayers();
@@ -60,7 +60,8 @@ const mapMarkers = (res) => {
     marker.bindPopup(item.pipe_code).openPopup();
     marker.on("click", function () {
       map.flyTo(this.getLatLng());
-      onFocus = this;
+      //onFocus = this;
+      if (detailSearch) detailSearch({ ID: item.ID, DTYPE: item.DTYPE });
     });
     markersGroup.addLayer(marker);
   });
@@ -90,7 +91,7 @@ const coloredIcon = (dt, big = false) => {
       break;
   }
   let size;
-  big ? (size = [40, 65.6]) : (size = [25, 41]);
+  big ? (size = [32.5, 53.3]) : (size = [25, 41]);
   return L.icon({
     iconUrl: `https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-${output}.png`,
     iconSize: size,
