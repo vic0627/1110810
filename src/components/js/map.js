@@ -30,9 +30,7 @@ const mapPath = (latlngs) => {
 };
 
 // 建立孔洞圖標
-let markersGroup,
-  marker,
-  cacheColor = [];
+let markersGroup, marker;
 const mapMarkers = (res, detailSearch, detailResultShow) => {
   if (markersGroup && marker) {
     markersGroup.clearLayers();
@@ -47,7 +45,6 @@ const mapMarkers = (res, detailSearch, detailResultShow) => {
     marker = L.marker(latlng, {
       icon: coloredIcon(item.DTYPE),
     });
-    cacheColor.push(item.DTYPE);
     marker.bindPopup(`孔洞代碼 : ${item.pipe_code}`).openPopup();
     marker.on("click", function () {
       map.flyTo(this.getLatLng(), 17);
@@ -61,7 +58,7 @@ const mapMarkers = (res, detailSearch, detailResultShow) => {
   map.fitBounds(bounds);
 };
 
-const coloredIcon = (dt, big = false) => {
+const coloredIcon = (dt) => {
   let output = "";
   switch (dt) {
     case "S1":
@@ -83,11 +80,9 @@ const coloredIcon = (dt, big = false) => {
       output = "blue";
       break;
   }
-  let size;
-  big ? (size = [32.5, 53.3]) : (size = [25, 41]);
   return L.icon({
     iconUrl: `https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-${output}.png`,
-    iconSize: size,
+    iconSize: [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
     tooltipAnchor: [16, -28],
