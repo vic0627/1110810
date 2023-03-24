@@ -8,19 +8,11 @@ const mapInit = () => {
     zoom: 17,
   });
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
-  /* map.on("moveend", () => {
-    if (!onFocus) return;
-    let i = 0;
-    for (const key in markersGroup._layers) {
-      markersGroup._layers[key].setIcon(coloredIcon(cacheColor[i]));
-      i++;
-    }
-    onFocus.setIcon(coloredIcon("", true));
-  }); */
 };
 
+// 視角跟進
 const flyTo = (latlng) => {
-  map.flyTo(latlng);
+  map.flyTo(latlng, 17);
 };
 
 // 建立巡查範圍
@@ -40,14 +32,13 @@ const mapPath = (latlngs) => {
 // 建立孔洞圖標
 let markersGroup,
   marker,
-  onFocus,
   cacheColor = [];
-const mapMarkers = (res, detailSearch) => {
-  if (!res) return;
+const mapMarkers = (res, detailSearch, detailResultShow) => {
   if (markersGroup && marker) {
     markersGroup.clearLayers();
     marker.off("click");
   } // markersGroup 初始化
+  if (!res) return;
   markersGroup = L.layerGroup().addTo(map);
   let bounds = [];
   res.map((item) => {
@@ -57,11 +48,13 @@ const mapMarkers = (res, detailSearch) => {
       icon: coloredIcon(item.DTYPE),
     });
     cacheColor.push(item.DTYPE);
-    marker.bindPopup(item.pipe_code).openPopup();
+    marker.bindPopup(`孔洞代碼 : ${item.pipe_code}`).openPopup();
     marker.on("click", function () {
-      map.flyTo(this.getLatLng());
-      //onFocus = this;
-      if (detailSearch) detailSearch({ ID: item.ID, DTYPE: item.DTYPE });
+      map.flyTo(this.getLatLng(), 17);
+      if (detailSearch) {
+        detailSearch({ ID: item.ID, DTYPE: item.DTYPE });
+        detailResultShow();
+      };
     });
     markersGroup.addLayer(marker);
   });

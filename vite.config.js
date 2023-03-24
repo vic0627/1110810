@@ -15,4 +15,13 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     }),
   ],
+  server: {
+    proxy: {
+      '/srgeo': {
+        target: "https://www.srgeo.com.tw/",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/srgeo/, ''),
+      }        
+    }
+  }
 });

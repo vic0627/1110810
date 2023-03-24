@@ -131,6 +131,7 @@ const returnSearchBox = () => {
     user.resultObj = undefined;
     user.searchBoxShow = true;
     user.searchResultShow = false;
+    user.detailResultShow = false;
     holeSearchValue.value.page = 1;
 }
 
@@ -138,6 +139,7 @@ const returnSearchBox = () => {
 const detailOnClick = (e) => {
     user.details.ID = e.ID;
     user.details.DTYPE = e.DTYPE;
+    user.detailResultShow = true;
     user.detailSearch();
     flyTo([e.LAT, e.LNG])
 };

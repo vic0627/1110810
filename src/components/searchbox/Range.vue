@@ -56,7 +56,7 @@ const confirmSearch = () => {
     axios.post("http://211.72.231.157/Kcg_Wrb_SP/api/v1/search_TRACE_List", body())
         .then(res => {
             let exist = [];
-            res.data.data.count === 0 ? console.log("找不到資料") : exist = res.data.data.data;
+            res.data.data.count === 0 ? user.alertShowing() : exist = res.data.data.data;
             return exist;
         })
         .then(pol => mapPath(pol.map(e => polTolatlngs(e.pol))))
