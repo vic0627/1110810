@@ -4,7 +4,6 @@ import { mapMarkers } from "../components/js/map";
 
 export default defineStore("userStore", {
   state: () => ({
-
     // select options
     dis: [],
     level: [],
@@ -33,7 +32,6 @@ export default defineStore("userStore", {
     alertShow: { title: "", show: false },
   }),
   getters: {
-
     // 行政區 getter
     getDis: (state) => {
       const temp = [];
@@ -45,33 +43,22 @@ export default defineStore("userStore", {
 
     // 破壞程度 getter
     getLevel: (state) => {
-      const temp = [];
-      const repeat = [];
-      state.level.map((val, idx) => {
-        let str = "";
-        if (val.includes("S")) {
-          str = "S";
-          repeat[idx] = idx;
-        } else {
-          str = val;
-        }
-        temp[idx] = { value: str, label: str };
-      });
-      temp.splice(repeat[0], repeat.length - 1);
-      return temp;
+      let temp = state.level.map((item) => (item.includes("S") ? "S" : item));
+      return Array.from(new Set(temp)).map((item) => ({
+        value: item,
+        label: item,
+      }));
     },
   },
   actions: {
-
     // 孔洞查詢
     holeSearch() {
-
       // 取值
       const { dis, date, dtype, page } = this.holeSearchValue;
 
       // 建立 FormData
       const body = new FormData();
-      if (dis.length > 0) body.append("dis", ...dis);
+      if (dis) body.append("dis", dis);
       if (date !== null) {
         body.append("dts", date[0]);
         body.append("dte", date[1]);

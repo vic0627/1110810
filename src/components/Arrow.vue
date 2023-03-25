@@ -29,4 +29,5 @@ const props = defineProps(["color", "rotate", "size", "position", "left", "type"
         width: 75%;
         height: 75%;
     }
-}</style>
+}
+</style>

@@ -51,7 +51,7 @@ const mapMarkers = (res, detailSearch, detailResultShow) => {
       if (detailSearch) {
         detailSearch({ ID: item.ID, DTYPE: item.DTYPE });
         detailResultShow();
-      };
+      }
     });
     markersGroup.addLayer(marker);
   });
@@ -92,4 +92,12 @@ const coloredIcon = (dt) => {
     shadowAnchor: [12, 41],
   });
 };
-export { mapInit, mapPath, mapMarkers, flyTo };
+
+const init = () => {
+  if (!!path) map.removeLayer(path); // path 初始化
+  if (markersGroup && marker) {
+    markersGroup.clearLayers();
+    marker.off("click");
+  } // markersGroup 初始化
+};
+export { mapInit, mapPath, mapMarkers, flyTo, init };
